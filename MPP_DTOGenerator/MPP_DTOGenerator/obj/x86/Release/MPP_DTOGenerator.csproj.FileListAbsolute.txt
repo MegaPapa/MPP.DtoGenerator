@@ -1,0 +1,5 @@
+C:\Users\Max\documents\visual studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\bin\Release\MPP_DTOGenerator.exe.config
+C:\Users\Max\documents\visual studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\bin\Release\MPP_DTOGenerator.exe
+C:\Users\Max\documents\visual studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\bin\Release\MPP_DTOGenerator.pdb
+C:\Users\Max\documents\visual studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\obj\x86\Release\MPP_DTOGenerator.exe
+C:\Users\Max\documents\visual studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\obj\x86\Release\MPP_DTOGenerator.pdb
