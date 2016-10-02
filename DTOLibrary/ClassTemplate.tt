@@ -1,0 +1,20 @@
+﻿<#@ template language="C#" #>
+<#@ parameter name="dtoContainer" type="MPP_DTOGenerator.DTOContainer" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+public sealed class <# this.Write(this.dtoContainer.ClassName); #> {
+<#	
+	
+	dtoContainer.PropertyList.ForEach(value => {    
+												String type = value.Format;
+												if (value.Format == "int32")
+													type = "int";
+												if (value.Format == "int64")
+													type = "long";
+												if (value.Format == "boolean")
+													type = "bool";
+												
+												this.WriteLine("\tpublic {0} {1} {{ get; set;}}",type,value.Name);
+										});
+#>
+}
