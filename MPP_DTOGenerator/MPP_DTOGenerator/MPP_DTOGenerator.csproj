@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassTemplate.cs">
+    <Compile Include="DTOLib\ClassTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ClassTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="DTO.cs" />
-    <Compile Include="DTOContainer.cs">
+    <Compile Include="DTOLib\DTO.cs" />
+    <Compile Include="DTOLib\DTOContainer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DTOGenerator.cs" />
+    <Compile Include="DTOLib\DTOGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassTemplate.tt">
+    <None Include="DTOLib\ClassTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ClassTemplate.cs</LastGenOutput>
     </None>
