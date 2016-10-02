@@ -1,6 +1,0 @@
-C:\Users\Max\Documents\Visual Studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\bin\Debug\MPP_DTOGenerator.exe
-C:\Users\Max\Documents\Visual Studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\bin\Debug\MPP_DTOGenerator.pdb
-C:\Users\Max\Documents\Visual Studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\obj\x86\Debug\MPP_DTOGenerator.exe
-C:\Users\Max\Documents\Visual Studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\obj\x86\Debug\MPP_DTOGenerator.pdb
-C:\Users\Max\documents\visual studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\obj\x86\Debug\MPP_DTOGenerator.csprojResolveAssemblyReference.cache
-C:\Users\Max\documents\visual studio 2010\Projects\MPP_DTOGenerator\MPP_DTOGenerator\bin\Debug\MPP_DTOGenerator.exe.config
