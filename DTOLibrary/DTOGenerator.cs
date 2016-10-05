@@ -10,13 +10,14 @@ using MPP_DTOGenerator.DTOLib;
 
 namespace MPP_DTOGenerator {
 
-    class DTOGenerator {
+    public class DTOGenerator : CodeGenerator {
 
         private volatile int index;
         private volatile Object threadLock;
         private int maxThreadCount;
+
         private DTOContainer dtoContainer;
-        private DTO dtoObject;
+        private DTOInstance dtoObject;
         private Semaphore semaphore;
         private String path;
 
@@ -28,67 +29,41 @@ namespace MPP_DTOGenerator {
             this.path = @path;
         }
 
-
-
-        //parse Json file and return object from them
-        public DTO ParseJSON(String path) {
-            try {
-                DTO result = null;
-                FileStream stream = new FileStream(@path, FileMode.Open);
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(DTO));
-                result = (DTO)serializer.ReadObject(stream);
-                return result;
-            }
-            catch (IOException e) { 
-                Console.WriteLine(e);
-            }
-            catch (SerializationException e) { 
-                Console.WriteLine("Serializataion exception: {0}", e); 
-            }
-            return null;
-        }
-
-        //T4 code generation
-        private String GenerateClassCode() {
-            ClassTemplate templateInstance = new ClassTemplate();        // create template T4 object
-            templateInstance.Session = new Dictionary<String, Object>();
-            templateInstance.Session.Add("dtoContainer", dtoContainer);   // pass dtoContainer to ClassTemplate.tt
-            templateInstance.Initialize();
-            return templateInstance.TransformText();
-        }
-
-
-        //create .cs file
-        private void CreateCSFile(object state) {
+        //Create .cs file
+        private void CreateCSFile() {
             lock (threadLock) {
-                dtoContainer = ThreadSafeExecute();
+                Executor executor = new Executor();
+                dtoContainer = executor.ThreadSafeExecute(dtoObject.Items,ref index);
                 var outputFileName = path + dtoContainer.ClassName + ".cs";
-                var generatedCode = GenerateClassCode();
+                var generatedCode = GenerateClassCode(dtoContainer,"dtoContainer");
                 File.WriteAllText(outputFileName,generatedCode);
             }
-
-            semaphore.Release();
         }
 
-        //thread-safe execute dtocontainer from list
-        private DTOContainer ThreadSafeExecute() {
-            
-            lock (threadLock) {
-                DTOContainer tmpContainer = new DTOContainer();
-                tmpContainer = dtoObject.Items.ElementAt(index);
-                index++;
-                return tmpContainer;
-            }
-            
-        }
+        
 
-        //start generating .cs file (calling from main method)
-        public void StartGenerating(DTO dtoObj) {
+        //Start generating .cs file (calling from main method)
+        public void StartGenerating(DTOInstance dtoObj) {
             dtoObject = dtoObj;
+            var finished = new CountdownEvent(1); // Used to wait for the completion of all work items.
             for (int i = 0; i < dtoObject.Items.Count; i++) {
-                semaphore.WaitOne();
-                ThreadPool.QueueUserWorkItem(CreateCSFile);
+                finished.AddCount();
+                ThreadPool.QueueUserWorkItem(
+                    (state) => {
+                        semaphore.WaitOne();
+                        try {
+                            CreateCSFile();
+                        }
+                        finally {
+                            semaphore.Release();
+                            finished.Signal();
+                            
+                        }
+                    }
+                    ,null);
             }
+            finished.Signal();
+            finished.Wait();
             
         }
 

@@ -12,7 +12,7 @@ namespace ConsoleApplication1 {
 
         private static List<DTOContainer> items = new List<DTOContainer>();
 
-        private static void addItem(String className, String name, String type, String format) {
+        private static void AddItem(String className, String name, String type, String format) {
             DTOContainer tmpContainer = new DTOContainer();
             tmpContainer.ClassName = className;
             Property tmpProperty = new Property();
@@ -23,7 +23,7 @@ namespace ConsoleApplication1 {
             items.Add(tmpContainer);
         }
 
-        private static void serizalization(String path) {
+        private static void Serizalization(String path) {
             FileStream stream = File.Create(path);
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<DTOContainer>));
             serializer.WriteObject(stream, items);

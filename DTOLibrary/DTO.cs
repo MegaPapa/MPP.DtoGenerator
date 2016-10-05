@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace MPP_DTOGenerator {
     
     [DataContract]
-    class DTO {
+    public class DTOInstance {
 
         [DataMember]
         private List<DTOContainer> items = new List<DTOContainer>();

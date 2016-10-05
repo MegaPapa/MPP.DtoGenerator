@@ -51,11 +51,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClassTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="DTOLib\CodeGenerator.cs" />
     <Compile Include="DTOLib\DTO.cs" />
     <Compile Include="DTOLib\DTOContainer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DTOLib\DTOGenerator.cs" />
+    <Compile Include="DTOLib\Executor.cs" />
+    <Compile Include="DTOLib\ISafety.cs" />
+    <Compile Include="JSONParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,7 +67,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="DTOLib\ClassTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ClassTemplate.cs</LastGenOutput>

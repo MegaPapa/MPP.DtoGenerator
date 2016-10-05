@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace MPP_DTOGenerator {
     
     [DataContract]
-    class Property {
+    public class Property {
         [DataMember]
         private String name;
         public String Name { 
@@ -31,7 +31,7 @@ namespace MPP_DTOGenerator {
     }
 
     [DataContract]
-    class DTOContainer {
+    public class DTOContainer {
 
         [DataMember]
         private String className;
