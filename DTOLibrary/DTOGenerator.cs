@@ -18,26 +18,28 @@ namespace MPP_DTOGenerator {
 
         private DTOContainer dtoContainer;
         private DTOInstance dtoObject;
-        private Semaphore semaphore;
+        private SemaphoreSlim semaphore;
         private String path;
 
         public DTOGenerator(String path,int maxThreadCount) {
             threadLock = new Object();
             this.maxThreadCount = maxThreadCount;
             index = 0;
-            semaphore = new Semaphore(maxThreadCount, maxThreadCount);
+            semaphore = new SemaphoreSlim(maxThreadCount, maxThreadCount);
             this.path = @path;
         }
 
         //Create .cs file
         private void CreateCSFile() {
-            lock (threadLock) {
+            /*lock (threadLock) {
                 Executor executor = new Executor();
                 dtoContainer = executor.ThreadSafeExecute(dtoObject.Items,ref index);
                 var outputFileName = path + dtoContainer.ClassName + ".cs";
                 var generatedCode = GenerateClassCode(dtoContainer,"dtoContainer");
                 File.WriteAllText(outputFileName,generatedCode);
-            }
+            }*/
+            Thread.Sleep(2000);
+            Console.WriteLine("abc");
         }
 
         
@@ -48,16 +50,15 @@ namespace MPP_DTOGenerator {
             var finished = new CountdownEvent(1); // Used to wait for the completion of all work items.
             for (int i = 0; i < dtoObject.Items.Count; i++) {
                 finished.AddCount();
+                semaphore.Wait();
                 ThreadPool.QueueUserWorkItem(
                     (state) => {
-                        semaphore.WaitOne();
                         try {
                             CreateCSFile();
                         }
                         finally {
                             semaphore.Release();
                             finished.Signal();
-                            
                         }
                     }
                     ,null);
