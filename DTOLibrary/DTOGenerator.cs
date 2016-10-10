@@ -31,15 +31,13 @@ namespace MPP_DTOGenerator {
 
         //Create .cs file
         private void CreateCSFile() {
-            /*lock (threadLock) {
+            lock (threadLock) {
                 Executor executor = new Executor();
                 dtoContainer = executor.ThreadSafeExecute(dtoObject.Items,ref index);
                 var outputFileName = path + dtoContainer.ClassName + ".cs";
                 var generatedCode = GenerateClassCode(dtoContainer,"dtoContainer");
                 File.WriteAllText(outputFileName,generatedCode);
-            }*/
-            Thread.Sleep(2000);
-            Console.WriteLine("abc");
+            }
         }
 
         
